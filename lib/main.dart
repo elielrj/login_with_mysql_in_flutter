@@ -1,7 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:login_with_mysql_in_flutter/conexao.dart';
+import 'package:login_with_mysql_in_flutter/model/bo/funcao.dart';
+import 'package:login_with_mysql_in_flutter/model/bo/hierarquia.dart';
+import 'package:login_with_mysql_in_flutter/model/bo/nivel_de_acesso.dart';
+import 'package:login_with_mysql_in_flutter/model/bo/usuario.dart';
+import 'package:login_with_mysql_in_flutter/model/dao/conexao.dart';
+import 'package:login_with_mysql_in_flutter/model/dao/usuario_dao.dart';
 
-void main() {
+void main() async  {
+  Usuario usuario = Usuario();
+  usuario.nome = "Eliel";
+  usuario.status = true;
+  Hierarquia hierarquia = Hierarquia();
+
+  hierarquia.sigla = "Sgt";
+  hierarquia.postoOuGraduacao = "Sargento";
+  usuario.hierarquia = hierarquia;
+
+  NivelDeAcesso nivelDeAcesso = NivelDeAcesso();
+  nivelDeAcesso.descricao = "dexcr";
+
+  Funcao funcao = Funcao();
+  funcao.status = true;
+  funcao.descricao= "descr";
+  funcao.nivelDeAcesso = nivelDeAcesso;
+
+  usuario.dataDeCriacao = DateTime.now();
+  usuario.ultimoAcesso = DateTime.now();
+
+  UsuarioDAO usuarioDAO = UsuarioDAO();
+  await usuarioDAO.create(usuario);
+
   runApp(const MyApp());
 
 }
