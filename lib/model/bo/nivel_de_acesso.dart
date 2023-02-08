@@ -1,0 +1,3 @@
+class NivelDeAcesso{
+  String? descricao;
+}
